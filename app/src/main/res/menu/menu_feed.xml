@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <item android:id="@+id/action_publish" android:title="@string/tw_publish_tweet" app:showAsAction="ifRoom" />
+    <item android:id="@+id/action_logout" android:title="@string/tw_logout" app:showAsAction="ifRoom" />
+</menu>

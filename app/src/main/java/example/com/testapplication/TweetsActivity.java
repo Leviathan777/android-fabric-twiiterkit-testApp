@@ -26,12 +26,15 @@ public class TweetsActivity extends ListActivity {
     private TweetViewAdapter adapter;
     private Button twSentTweet;
     private Button twLogoutButton;
+    private StatusesService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         adapter = new TweetViewAdapter(this);
+        service = Twitter.getInstance().getApiClient().getStatusesService();
+
         twSentTweet = (Button)findViewById(R.id.twSendTweet);
         twLogoutButton = (Button)findViewById(R.id.twLogout);
         twSentTweet.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +56,6 @@ public class TweetsActivity extends ListActivity {
     }
 
     public void loadTweets() {
-        final StatusesService service = Twitter.getInstance().getApiClient().getStatusesService();
-
         service.homeTimeline(null, null, null, null, null, null, null, new Callback<List<Tweet>>() {
                     @Override
                     public void success(Result<List<Tweet>> result) {
@@ -79,8 +80,8 @@ public class TweetsActivity extends ListActivity {
     }
 
     private void publishTweet() {
-        final StatusesService statusesService = Twitter.getInstance().getApiClient().getStatusesService();
-        statusesService.update("Привет хабр!", null, null, null, null, null, null, null, new Callback<Tweet>() {
+        service = Twitter.getInstance().getApiClient().getStatusesService();
+        service.update("Привет хабр!", null, null, null, null, null, null, null, new Callback<Tweet>() {
             @Override
             public void success(Result<Tweet> tweetResult) {
                 Toast.makeText(TweetsActivity.this, "Успешно опубликовали статус",
